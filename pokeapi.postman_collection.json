@@ -22,8 +22,20 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"if (name = \"pikachu\")",
-									"    console.log ('sucess');"
+									"pm.test(\"Status code é 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Nome do Pokémon é pikachu\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(\"pikachu\");",
+									"});",
+									"",
+									"pm.test(\"Resposta contém o tipo elétrico\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const tipos = jsonData.types.map(t => t.type.name);",
+									"    pm.expect(tipos).to.include(\"electric\");",
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {},
@@ -204,17 +216,114 @@
 				},
 				{
 					"name": "pokemon-by-type - psychic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Nome do tipo é psychic\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(\"psychic\");",
+									"});",
+									"",
+									"pm.test(\"Lista de Pokémon não está vazia\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.pokemon.length).to.be.above(0);",
+									"});",
+									"/*",
+									"pm.test(\"Pikachu está na lista de Pokémon psychic\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const nomes = jsonData.pokemon.map(p => p.pokemon.name);",
+									"    pm.expect(nomes).to.include(\"pikachu\");",
+									"});",
+									"*/",
+									"pm.test(\"Abra está na lista de Pokémon psychic\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const nomes = jsonData.pokemon.map(p => p.pokemon.name);",
+									"    pm.expect(nomes).to.include(\"abra\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "https://pokeapi.co/api/v2/type/psychic",
+							"protocol": "https",
+							"host": [
+								"pokeapi",
+								"co"
+							],
+							"path": [
+								"api",
+								"v2",
+								"type",
+								"psychic"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "pokemon-by-name - gengar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"/*",
+									"pm.test(\"Nome do Pokémon é pikachu\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(\"pikachu\");",
+									"});",
+									"*/",
+									"",
+									"pm.test(\"Nome do Pokémon é gengar\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(\"gengar\");",
+									"});",
+									"",
+									"pm.test(\"Resposta contém o tipo ghost\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    const tipos = jsonData.types.map(t => t.type.name);",
+									"    pm.expect(tipos).to.include(\"ghost\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "https://pokeapi.co/api/v2/pokemon/gengar",
+							"protocol": "https",
+							"host": [
+								"pokeapi",
+								"co"
+							],
+							"path": [
+								"api",
+								"v2",
+								"pokemon",
+								"gengar"
+							]
+						}
 					},
 					"response": []
 				}

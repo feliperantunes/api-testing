@@ -1,4 +1,4 @@
-name: CI - Testes da PokeAPIpokeapi.postman_colletion.json
+name: CI - Testes da PokeAPI
 
 on:
   push:
@@ -23,4 +23,4 @@ jobs:
         run: npm install -g newman
 
       - name: Rodar testes da collection
-        run: newman run pokeapi.postman_colletion.json
+        run: newman run pokeapi.postman_collection.json
