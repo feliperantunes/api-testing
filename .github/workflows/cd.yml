@@ -1,0 +1,49 @@
+name: CD - Publicar relatório de testes
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar Newman e o reporter HTML
+        run: npm install -g newman newman-reporter-htmlextra
+
+      - name: Rodar testes e gerar relatório HTML
+        run: |
+          newman run pokeapi.postman_collection.json \
+            --reporters cli,htmlextra \
+            --reporter-htmlextra-export ./report/index.html
+
+      - name: Upload do relatório como artefato do Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./report
+
+  deploy-report:
+    needs: build-report
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
