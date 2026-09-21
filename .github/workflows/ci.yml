@@ -24,3 +24,9 @@ jobs:
 
       - name: Rodar testes da collection
         run: newman run pokeapi.postman_collection.json
+
+      - name: Instalar dependências do projeto
+        run: npm install
+
+      - name: Rodar testes unitários (Jest)
+        run: npm test

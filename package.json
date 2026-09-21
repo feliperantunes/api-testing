@@ -1,0 +1,23 @@
+{
+  "name": "api-testing",
+  "version": "1.0.0",
+  "description": "Suíte de testes automatizados para validar endpoints, respostas e status  codes da PokéAPI (https://pokeapi.co), usando Postman e Newman. Este repositório foi desenvolvido como atividade prática da disciplina  de DevOps (PUCPR), com o objetivo de aplicar conceitos de versionamento  com Git e testes automatizados de API, servindo de base para futura  integração com pipelines de CI/CD.",
+  "main": "pokemon-utils.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/feliperantunes/api-testing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/feliperantunes/api-testing/issues"
+  },
+  "homepage": "https://github.com/feliperantunes/api-testing#readme",
+  "devDependencies": {
+    "jest": "^30.5.2"
+  }
+}
